@@ -1,0 +1,7 @@
+dossier:
+  parent: D:\\dev
+  entrant: ${dossier.parent}\\mmegGlyphesOptimizer\\input\\
+  temporaire: ${dossier.parent}\\temp
+  tesseract: ${dossier.parent}\\mmegGlyphesOptimizer\\config\\tessdata
+  palynologie: palynologie
+  residus: residus

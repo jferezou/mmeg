@@ -1,0 +1,50 @@
+# Fichier de config commun aux differentes applications clientes du Serveur de Config
+server:
+  application:
+    conf:
+      dir: ${user.dir}/logs
+  use-forward-headers: true
+  address: localhost
+  port: 8089
+
+spring:
+  application:
+    name: mmegGlyphesOptimizer
+  session:
+    store-type: none
+webapp:
+  actuator:
+    username: admin
+    password: admin
+  security:
+    restPrefix: ${webapp.url.services}/rest
+  url:
+    contextRoot: /mmegGlyphesOptimizer
+    services:  ${webapp.url.contextRoot}/services
+
+management:
+  context-path: /management
+  security:
+    enabled: false
+endpoints:
+  shutdown:
+    enabled: true
+
+datasource:
+  mmegGlyphesOptimizer:
+    host: localhost
+    port: 5432
+    dbname: mmegGlyphesOptimizer
+    username: usrmmegGlyphesOptimizer
+    password: pwdmmegGlyphesOptimizer
+    maxPoolSize: 10
+    minPoolSize: 3
+    testQuery: SELECT 1
+    url: jdbc:postgresql://${datasource.mmegGlyphesOptimizer.host}:${datasource.mmegGlyphesOptimizer.port}/${datasource.mmegGlyphesOptimizer.dbname}
+    jdbcDialect: org.hibernate.dialect.PostgreSQLDialect
+hibernate:
+  configuration:
+    defaultSchema: public
+    jdbcDialect: org.hibernate.dialect.PostgreSQLDialect
+    schemas:
+      schema_name_ssi: public
