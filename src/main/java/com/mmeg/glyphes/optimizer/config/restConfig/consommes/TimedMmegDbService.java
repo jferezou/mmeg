@@ -2,7 +2,7 @@ package com.mmeg.glyphes.optimizer.config.restConfig.consommes;
 
 
 import com.mmeg.glyphes.optimizer.annotation.LogCall;
-import com.mmeg.glyphes.optimizer.pojo.servicesConsommes.MobStats;
+import com.mmeg.glyphes.optimizer.pojo.servicesConsommes.mmegdb.MobStats;
 
 /**
  * Proxy qui trace les appels PRR
@@ -10,15 +10,15 @@ import com.mmeg.glyphes.optimizer.pojo.servicesConsommes.MobStats;
  * @author Romain GERVAIS
  * 
  */
-public class TimedMobStatsService implements MobStatsService {
+public class TimedMmegDbService implements MmegDbService {
 
 	/** l'instance à qui déléguer l'appel */
-	private MobStatsService delegate;
+	private MmegDbService delegate;
 
 	/**
 	 * Constructeur pour faire de l'introspection
 	 */
-	TimedMobStatsService() {
+	TimedMmegDbService() {
 		super();
 	}
 
@@ -28,7 +28,7 @@ public class TimedMobStatsService implements MobStatsService {
 	 * @param delegate
 	 *            l'instance à qui déléguer l'appel
 	 */
-	public TimedMobStatsService(final MobStatsService delegate) {
+	public TimedMmegDbService(final MmegDbService delegate) {
 		super();
 		this.delegate = delegate;
 	}

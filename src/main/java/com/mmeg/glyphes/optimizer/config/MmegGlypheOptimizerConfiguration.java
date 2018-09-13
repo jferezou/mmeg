@@ -4,6 +4,10 @@ package com.mmeg.glyphes.optimizer.config;
 import com.mmeg.glyphes.optimizer.annotation.ServiceMethod;
 import com.mmeg.glyphes.optimizer.config.aspects.ApplicationModule;
 import com.mmeg.glyphes.optimizer.config.aspects.ServiceMethodAspect;
+import com.mmeg.glyphes.optimizer.exception.ApplicationExceptionFactory;
+import com.mmeg.glyphes.optimizer.exception.SearchCausedByExceptionHandler;
+import com.mmeg.glyphes.optimizer.exception.ServiceExceptionHandler;
+import com.mmeg.glyphes.optimizer.exception.mapper.TimeoutExceptionMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -21,14 +25,25 @@ import javax.validation.ValidatorFactory;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class MmegGlypheOptimizerConfiguration {
 
+    @Bean
+    public ApplicationExceptionFactory getApplicationExceptionFactory() {
+        return new ApplicationExceptionFactory();
+    }
+
+    @Bean
+    public ServiceExceptionHandler getServiceExceptionHandler(ApplicationExceptionFactory applicationExceptionFactory) {
+        SearchCausedByExceptionHandler checkAllStackExceptionHandler = new SearchCausedByExceptionHandler(applicationExceptionFactory);
+        checkAllStackExceptionHandler.addExceptionMapper(new TimeoutExceptionMapper(applicationExceptionFactory));
+        return checkAllStackExceptionHandler;
+    }
     /**
      * Créer une instance de ApplicationModule
      *
      * @return une instance de ApplicationModule
      */
     @Bean
-    public ApplicationModule getApplicationModule() {
-        return new ApplicationModule("MMEG_Glyphes_Optimizer");
+    public ApplicationModule getApplicationModule(ServiceExceptionHandler serviceExceptionHandler) {
+        return new ApplicationModule("MMEG_Glyphes_Optimizer", serviceExceptionHandler);
     }
 
 

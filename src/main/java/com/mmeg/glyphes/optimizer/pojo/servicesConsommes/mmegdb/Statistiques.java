@@ -1,4 +1,4 @@
-package com.mmeg.glyphes.optimizer.pojo.servicesConsommes;
+package com.mmeg.glyphes.optimizer.pojo.servicesConsommes.mmegdb;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

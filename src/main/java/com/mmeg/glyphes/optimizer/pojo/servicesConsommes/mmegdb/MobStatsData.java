@@ -1,4 +1,4 @@
-package com.mmeg.glyphes.optimizer.pojo.servicesConsommes;
+package com.mmeg.glyphes.optimizer.pojo.servicesConsommes.mmegdb;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,10 +11,13 @@ import javax.annotation.Generated;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-		"data"
+		"name",
+		"stats"
 })
 @Data
-public class MobStats extends AdditionalProperties {
-	@JsonProperty("data")
-	private MobStatsData data;
+public class MobStatsData  extends AdditionalProperties {
+	@JsonProperty("name")
+	private String name;
+	@JsonProperty("stats")
+	private StatsGlobales statsGlobales;
 }

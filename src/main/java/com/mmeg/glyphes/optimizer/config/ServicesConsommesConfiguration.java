@@ -1,7 +1,7 @@
 package com.mmeg.glyphes.optimizer.config;
 
-import com.mmeg.glyphes.optimizer.config.restConfig.consommes.MobStatsService;
-import com.mmeg.glyphes.optimizer.config.restConfig.consommes.TimedMobStatsService;
+import com.mmeg.glyphes.optimizer.config.restConfig.consommes.MmegDbService;
+import com.mmeg.glyphes.optimizer.config.restConfig.consommes.TimedMmegDbService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,16 +18,16 @@ public class ServicesConsommesConfiguration {
 	private static final Logger LOGGER = LogManager.getLogger(ServicesConsommesConfiguration.class);
 
 	@Bean
-	public MobStatsService getPrrService(@Value("${http.mmegdb.url}") final String serviceUrl,
-										 @Value("${http.mmegdb.readtimeout}") final int readTimeoutInSeconds,
-										 @Value("${http.mmegdb.log.activate}") final boolean activateLog) {
-		MobStatsService prrRestService = aRestClient(ofJsonType(MobStatsService.class, serviceUrl)
+	public MmegDbService getPrrService(@Value("${http.mmegdb.url}") final String serviceUrl,
+									   @Value("${http.mmegdb.readtimeout}") final int readTimeoutInSeconds,
+									   @Value("${http.mmegdb.log.activate}") final boolean activateLog) {
+		MmegDbService prrRestService = aRestClient(ofJsonType(MmegDbService.class, serviceUrl)
 				.threadSafe())
 				.withReadTimeout(readTimeoutInSeconds)
 				.withLog(activateLog)
 				.build();
 
-		return new TimedMobStatsService(prrRestService);
+		return new TimedMmegDbService(prrRestService);
 	}
 
 }
