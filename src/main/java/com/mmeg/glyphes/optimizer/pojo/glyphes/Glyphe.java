@@ -16,9 +16,9 @@ public abstract class Glyphe {
 	protected int attPourcent;
 	protected int attFlat;
 
-	protected boolean rond;
-	protected boolean carre;
-	protected boolean hexagonal;
+	protected int rond;
+	protected int carre;
+	protected int hexagonal;
 
 
 	protected int setVitalite;

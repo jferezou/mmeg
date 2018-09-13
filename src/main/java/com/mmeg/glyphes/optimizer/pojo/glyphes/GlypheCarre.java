@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class GlypheCarre extends Glyphe {
 	public GlypheCarre(){
-		setCarre(true);
-		setRond(false);
-		setHexagonal(false);
+		setCarre(1);
+		setRond(0);
+		setHexagonal(0);
 	}
 }

@@ -22,6 +22,7 @@ public class OptimizeServiceImpl implements OptimizeService {
 
     @Override
     public void optimize(final OptimizeParameters optimizeParameters) {
+        optimizeParameters.convertSet();
         MobStats mobStats = mmegDbService.getStatistiques(optimizeParameters.getNomMob(),optimizeParameters.getElementMob().getCode());
         Mob mob = Mob.of(mobStats);
         LOGGER.info("Optimisation du monstre : {}", mob);
