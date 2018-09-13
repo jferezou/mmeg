@@ -29,7 +29,12 @@ management:
 endpoints:
   shutdown:
     enabled: true
-
+http:
+  mmegdb:
+    url: https://mmeg-db.com/fr/
+    readtimeout: 120
+    log:
+      activate: true
 datasource:
   mmegGlyphesOptimizer:
     host: localhost
