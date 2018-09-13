@@ -6,4 +6,11 @@ public class GlypheRond extends Glyphe {
 		setRond(1);
 		setHexagonal(0);
 	}
+
+	public GlypheRond(Glyphe glyphe){
+		super(glyphe);
+		setCarre(0);
+		setRond(1);
+		setHexagonal(0);
+	}
 }

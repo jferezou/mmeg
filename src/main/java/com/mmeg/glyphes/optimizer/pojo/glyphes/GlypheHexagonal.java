@@ -7,4 +7,11 @@ public class GlypheHexagonal extends Glyphe {
 		setRond(0);
 		setHexagonal(1);
 	}
+
+	public GlypheHexagonal(Glyphe glyphe){
+		super(glyphe);
+		setCarre(0);
+		setRond(0);
+		setHexagonal(1);
+	}
 }
