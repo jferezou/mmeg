@@ -1,6 +1,7 @@
 package com.mmeg.glyphes.optimizer.service.impl;
 
 import com.mmeg.glyphes.optimizer.config.restConfig.consommes.MmegDbService;
+import com.mmeg.glyphes.optimizer.pojo.Mob;
 import com.mmeg.glyphes.optimizer.pojo.OptimizeParameters;
 import com.mmeg.glyphes.optimizer.pojo.servicesConsommes.mmegdb.MobStats;
 import com.mmeg.glyphes.optimizer.service.OptimizeService;
@@ -22,6 +23,7 @@ public class OptimizeServiceImpl implements OptimizeService {
     @Override
     public void optimize(final OptimizeParameters optimizeParameters) {
         MobStats mobStats = mmegDbService.getStatistiques(optimizeParameters.getNomMob(),optimizeParameters.getElementMob().getCode());
-        LOGGER.info(mobStats.toString());
+        Mob mob = Mob.of(mobStats);
+        LOGGER.info("Optimisation du monstre : {}", mob);
     }
 }
