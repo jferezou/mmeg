@@ -18,4 +18,13 @@ public class OptimizeParameters {
 	private int minResistance;
 	private int minDegatCoupsCritiques;
 	private int minTauxCoupsCritiques;
+
+	private int poidHp;
+	private int poidDef;
+	private int poidAtt;
+	private int poidVitesse;
+	private int poidCC;
+	private int poidDCC;
+	private int poidPrecision;
+	private int poidResistance;
 }

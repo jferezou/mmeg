@@ -1,6 +1,7 @@
 package com.mmeg.glyphes.optimizer.service.impl;
 
 import com.mmeg.glyphes.optimizer.pojo.Glyphage;
+import com.mmeg.glyphes.optimizer.pojo.OptimizeParameters;
 import com.mmeg.glyphes.optimizer.pojo.Solution;
 import com.mmeg.glyphes.optimizer.pojo.glyphes.Glyphe;
 import com.mmeg.glyphes.optimizer.service.CalculerTotaux;
@@ -70,7 +71,24 @@ public class CalculerTotauxImpl implements CalculerTotaux {
 	}
 
 	@Override
-	public void calculerValeurObjectif(final Solution solution) {
+	public double calculerValeurObjectif(final Solution solution, final OptimizeParameters optimizeParameters) {
+		double objectif = calculRatio(solution.getPvTotaux(), solution.getMob().getPvBase()) * optimizeParameters.getPoidHp();
+		objectif += calculRatio(solution.getDefTotaux(), solution.getMob().getDefBase()) * optimizeParameters.getPoidDef();
+		objectif += calculRatio(solution.getAttTotaux(), solution.getMob().getAttBase()) * optimizeParameters.getPoidAtt();
+		objectif += calculRatio(solution.getVitesseTotaux(), solution.getMob().getVitesseBase()) * optimizeParameters.getPoidVitesse();
+		objectif += calculRatio(solution.getCcTotaux(), solution.getMob().getCcBase()) * optimizeParameters.getPoidCC();
+		objectif += calculRatio(solution.getDccTotaux(), solution.getMob().getDccBase()) * optimizeParameters.getPoidDCC();
+		objectif += calculRatio(solution.getPrecisionTotaux(), solution.getMob().getPrecisionBase()) * optimizeParameters.getPoidPrecision();
+		objectif += calculRatio(solution.getResistanceTotaux(), solution.getMob().getResistanceBase()) * optimizeParameters.getPoidResistance();
 
+		return objectif;
+	}
+
+	protected double calculRatio(final long total, final int base) {
+		double value = (total - base) / (double) base;
+		int decimalPlaces = 5;
+		int truncatedNumberInt = (int)( value * Math.pow( 10, decimalPlaces ) );
+		double truncatedNumber = (double)( truncatedNumberInt / Math.pow( 10, decimalPlaces ) );
+		return truncatedNumber;
 	}
 }

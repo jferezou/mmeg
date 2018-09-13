@@ -224,6 +224,12 @@ public class CalculerTotauxImplTest {
 	}
 
 
+	@Test
+	public void calculRatioTest() {
+		Assertions.assertThat(calculerTotaux.calculRatio(500,12)).isEqualTo(40.66666);
+		Assertions.assertThat(calculerTotaux.calculRatio(46,254)).isEqualTo(-0.81889);
+	}
+
 	private Glyphe createGlyphe(final int hpflat, final int defflat, final int attflat, final int hppourcent, final int defpourcent, final int attpourcent, final int vitesse, final int cc, final int dcc, final int precision, final int resistance, final String typeGlyphe) {
 		Glyphe glyphe = null;
 		if(ROND.equals(typeGlyphe)) {
