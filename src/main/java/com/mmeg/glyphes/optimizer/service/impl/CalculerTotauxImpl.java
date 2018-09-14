@@ -6,6 +6,7 @@ import com.mmeg.glyphes.optimizer.pojo.OptimizeParameters;
 import com.mmeg.glyphes.optimizer.pojo.Solution;
 import com.mmeg.glyphes.optimizer.pojo.glyphes.Glyphe;
 import com.mmeg.glyphes.optimizer.service.CalculerTotaux;
+import com.mmeg.glyphes.optimizer.utils.SetEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -87,7 +88,16 @@ public class CalculerTotauxImpl implements CalculerTotaux {
 		objectif += calculRatio(solution.getPrecisionTotaux(), solution.getMob().getPrecisionBase()) * optimizeParameters.getPoidPrecision();
 		objectif += calculRatio(solution.getResistanceTotaux(), solution.getMob().getResistanceBase()) * optimizeParameters.getPoidResistance();
 
+		// on ajoute un poid pour les sets qui n'apportent rien si on les veut ceci afin d'avoir un réel interet sur ces sets
+		objectif += calculPoidSet(optimizeParameters.getPremierSet());
+		objectif += calculPoidSet(optimizeParameters.getSecondSet());
+
 		return objectif;
+	}
+
+	protected double calculPoidSet(final SetEnum setObligatoire) {
+		boolean setConcerne = setObligatoire.equals(SetEnum.MEDITATION) ||  setObligatoire.equals(SetEnum.DRAINDEVIE) ||  setObligatoire.equals(SetEnum.IMMUNITE) ||  setObligatoire.equals(SetEnum.APAISEMENT);
+		return setConcerne ? 1000 : 0;
 	}
 
 	protected double calculRatio(final long total, final int base) {

@@ -56,3 +56,6 @@ hibernate:
 async:
   voisinnage:
     poolSize: 6
+listeTabou:
+  taille: 50
+iterations: 150000

@@ -14,10 +14,15 @@ import com.mmeg.glyphes.optimizer.utils.EmplacementGlyphesEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.Future;
 
+@Service
 public class VoisinnageServiceImpl implements VoisinnageService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(VoisinnageServiceImpl.class);
 
@@ -34,8 +39,12 @@ public class VoisinnageServiceImpl implements VoisinnageService {
 	@Override
 	@LogCall
 	@Async("asyncVoisinnageExecutor")
-	public Solution parcourirVoisinage(final Solution solutionCourante, final EmplacementGlyphesEnum emplacementAChanger, final OptimizeParameters optimizeParameters, final List<Solution> listeTabou) {
+	public Future<Solution> parcourirVoisinageAsync(final Solution solutionCourante, final EmplacementGlyphesEnum emplacementAChanger, final OptimizeParameters optimizeParameters, final Queue<Solution> listeTabou) {
+		return new AsyncResult<>(parcourirVoisinage(solutionCourante, emplacementAChanger, optimizeParameters, listeTabou));
 
+	}
+
+	protected Solution parcourirVoisinage(final Solution solutionCourante, final EmplacementGlyphesEnum emplacementAChanger, final OptimizeParameters optimizeParameters, final Queue<Solution> listeTabou) {
 
 		Solution bestSolution = new Solution();
 		if(EmplacementGlyphesEnum.CARRE1.equals(emplacementAChanger) || EmplacementGlyphesEnum.CARRE2.equals(emplacementAChanger)) {
@@ -59,11 +68,11 @@ public class VoisinnageServiceImpl implements VoisinnageService {
 
 
 
-			return bestSolution;
+		return bestSolution;
 	}
 
 
-	private Solution voisinnageDirect(List<Glyphe> listeGlyphesEligibles, Glyphe glypheUtilise1, Glyphe glypheUtilise2, Mob mob, Glyphage glyphageCourant, final OptimizeParameters optimizeParameters, final EmplacementGlyphesEnum emplacementAChanger, final List<Solution> listeTabou) {
+	private Solution voisinnageDirect(List<Glyphe> listeGlyphesEligibles, Glyphe glypheUtilise1, Glyphe glypheUtilise2, Mob mob, Glyphage glyphageCourant, final OptimizeParameters optimizeParameters, final EmplacementGlyphesEnum emplacementAChanger, final Queue<Solution> listeTabou) {
 
 		double valeurSolution = 0.0;
 		Solution bestSolution = new Solution();
