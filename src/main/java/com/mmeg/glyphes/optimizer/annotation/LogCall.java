@@ -20,5 +20,5 @@ public @interface LogCall {
 	 * 
 	 * @return vrai par défaut.
 	 */
-	String loggerName() default "com.sncf.svsi.sis.TraceurDefaut";
+	String loggerName() default "";
 }

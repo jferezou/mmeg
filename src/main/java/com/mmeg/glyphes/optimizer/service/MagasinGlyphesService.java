@@ -8,7 +8,7 @@ import com.mmeg.glyphes.optimizer.pojo.glyphes.GlypheRond;
 import java.util.List;
 
 public interface MagasinGlyphesService {
-	List<GlypheRond> getGlyphesRond();
-	List<GlypheCarre> getGlyphesCarre();
-	List<GlypheHexagonal> getGlyphesHexa();
+	List<Glyphe> getGlyphesRond();
+	List<Glyphe> getGlyphesCarre();
+	List<Glyphe> getGlyphesHexa();
 }

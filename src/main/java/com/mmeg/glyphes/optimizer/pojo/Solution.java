@@ -6,7 +6,7 @@ import lombok.Data;
 public class Solution {
 	private Glyphage glyphage;
 	private Mob mob;
-	private long valeurFonctionObjectif;
+	private double valeurFonctionObjectif;
 
 	private long pvTotaux;
 	private long defTotaux;

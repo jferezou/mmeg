@@ -53,3 +53,6 @@ hibernate:
     jdbcDialect: org.hibernate.dialect.PostgreSQLDialect
     schemas:
       schema_name_ssi: public
+async:
+  voisinnage:
+    poolSize: 6

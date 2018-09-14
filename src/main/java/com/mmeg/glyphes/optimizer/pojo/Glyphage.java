@@ -1,8 +1,10 @@
 package com.mmeg.glyphes.optimizer.pojo;
 
+import com.mmeg.glyphes.optimizer.pojo.glyphes.Glyphe;
 import com.mmeg.glyphes.optimizer.pojo.glyphes.GlypheCarre;
 import com.mmeg.glyphes.optimizer.pojo.glyphes.GlypheHexagonal;
 import com.mmeg.glyphes.optimizer.pojo.glyphes.GlypheRond;
+import com.mmeg.glyphes.optimizer.utils.EmplacementGlyphesEnum;
 import lombok.Data;
 
 @Data
@@ -26,4 +28,27 @@ public class Glyphage {
 	private GlypheHexagonal slotHexa1;
 	private GlypheHexagonal slotHexa2;
 
+
+	public void changerGlyphe(Glyphe glypheachanger, final EmplacementGlyphesEnum emplacementAChanger) {
+		switch(emplacementAChanger) {
+			case CARRE1:
+				setSlotCarre1((GlypheCarre)glypheachanger);
+				break;
+			case CARRE2:
+				setSlotCarre2((GlypheCarre)glypheachanger);
+				break;
+			case ROND1:
+				setSlotRond1((GlypheRond) glypheachanger);
+				break;
+			case ROND2:
+				setSlotRond2((GlypheRond) glypheachanger);
+				break;
+			case HEXA1:
+				setSlotHexa1((GlypheHexagonal) glypheachanger);
+				break;
+			case HEXA2:
+				setSlotHexa2((GlypheHexagonal) glypheachanger);
+				break;
+		}
+	}
 }

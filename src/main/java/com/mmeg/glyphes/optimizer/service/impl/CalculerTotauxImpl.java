@@ -1,10 +1,13 @@
 package com.mmeg.glyphes.optimizer.service.impl;
 
+import com.mmeg.glyphes.optimizer.annotation.LogCall;
 import com.mmeg.glyphes.optimizer.pojo.Glyphage;
 import com.mmeg.glyphes.optimizer.pojo.OptimizeParameters;
 import com.mmeg.glyphes.optimizer.pojo.Solution;
 import com.mmeg.glyphes.optimizer.pojo.glyphes.Glyphe;
 import com.mmeg.glyphes.optimizer.service.CalculerTotaux;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -15,8 +18,10 @@ import static com.mmeg.glyphes.optimizer.utils.Constantes.*;
 
 @Service
 public class CalculerTotauxImpl implements CalculerTotaux {
+	private static final Logger LOGGER = LoggerFactory.getLogger(CalculerTotauxImpl.class);
 
 	@Override
+	@LogCall
 	public void mettreAjourTotaux(final Solution solution) {
 		Glyphage glyphage = solution.getGlyphage();
 
@@ -32,6 +37,7 @@ public class CalculerTotauxImpl implements CalculerTotaux {
 		solution.setDccTotaux(totalFlat(glyphes, solution.getMob().getDccBase(), Glyphe::getDcc, Glyphe::getSetDestruction, BONUS_DESTRUCTION));
 		solution.setPrecisionTotaux(totalFlat(glyphes, solution.getMob().getPrecisionBase(), Glyphe::getPrecision, Glyphe::getSetAdresse, BONUS_ADRESSE));
 		solution.setResistanceTotaux(totalFlat(glyphes, solution.getMob().getResistanceBase(), Glyphe::getResistance, Glyphe::getSetEndurance, BONUS_ENDURANCE));
+		LOGGER.debug("Resultat calcul : {}", solution.toString());
 	}
 
 	protected long totalPourcentEtFlat(final List<Glyphe> glyphes, final int base, final Function<Glyphe, Integer> pourcent, final Function<Glyphe, Integer> flat, final Function<Glyphe, Integer> set, final double bonusSet) {

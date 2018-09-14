@@ -3,14 +3,19 @@ package com.mmeg.glyphes.optimizer.config;
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
+import com.mmeg.glyphes.optimizer.config.aspects.ApplicationModule;
 import org.hibernate.SessionFactory;
 import org.postgresql.xa.PGXADataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.*;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 import org.springframework.orm.hibernate5.HibernateExceptionTranslator;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.jta.JtaTransactionManager;
@@ -23,6 +28,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@EnableAsync
 @Import({
         MmegGlypheOptimizerConfiguration.class,
         ServicesExposesConfiguration.class,
@@ -61,6 +67,15 @@ public class AppConfig {
     @ConfigurationProperties(prefix = "webapp")
     public WebCfgProperties webProperties() {
         return new WebCfgProperties();
+    }
+
+    @Bean(name = "asyncVoisinnageExecutor")
+    public AsyncTaskExecutor getAsyncTaskExecutor(@Value("${async.voisinnage.poolSize:6}") final int poolSize, final ApplicationModule applicationModule) {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setMaxPoolSize(poolSize);
+        executor.setCorePoolSize(poolSize);
+        executor.setTaskDecorator(new ContextKeeperDecorator(applicationModule));
+        return executor;
     }
 
 //
